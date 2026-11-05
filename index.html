@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070b1f">
+<meta name="robots" content="noindex,nofollow">
+<title>Наша вселенная ✨</title>
+<meta property="og:title" content="✨ Только для двоих">
+<meta property="og:description" content="Введи секретный код">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Marck+Script&family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Manrope:wght@500;700;800&display=swap&subset=cyrillic" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:#070b1f;overflow:hidden}
+body{font-family:'Cormorant Garamond',Georgia,serif;color:#f6efe7;display:flex;align-items:center;justify-content:center;text-align:center;-webkit-font-smoothing:antialiased}
+#sky{position:fixed;inset:0;background:radial-gradient(40% 30% at 15% 20%,rgba(120,70,180,.35),transparent 70%),radial-gradient(35% 30% at 85% 35%,rgba(240,120,160,.22),transparent 70%),linear-gradient(180deg,#070b1f,#0d1233 50%,#140f2e)}
+canvas{position:fixed;inset:0;pointer-events:none}
+.box{position:relative;z-index:2;padding:24px;width:min(420px,100%);transition:opacity .8s,transform .8s}
+.box.out{opacity:0;transform:scale(1.1)}
+.lock{width:76px;height:76px;margin:0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:34px;background:radial-gradient(circle at 40% 35%,rgba(255,223,158,.35),rgba(255,223,158,.05));border:1px solid rgba(255,223,158,.45);box-shadow:0 0 40px rgba(255,223,158,.25);animation:pulse 2.6s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 0 70px rgba(255,223,158,.5)}}
+h1{font-family:'Marck Script',cursive;font-weight:400;font-size:clamp(52px,14vw,76px);line-height:1;margin-top:18px;background:linear-gradient(180deg,#fff7ea,#f3c77a 60%,#e08e6d);-webkit-background-clip:text;background-clip:text;color:transparent}
+p{font-size:21px;font-style:italic;color:#c9bfd8;margin-top:10px;line-height:1.4}
+input{width:100%;margin-top:28px;padding:16px 18px;border-radius:18px;border:1px solid rgba(255,223,158,.4);background:rgba(20,22,52,.6);color:#fff;font-family:Manrope,sans-serif;font-size:18px;text-align:center;letter-spacing:.08em;outline:none;transition:border-color .3s,box-shadow .3s}
+input:focus{border-color:#ffdf9e;box-shadow:0 0 24px rgba(255,223,158,.3)}
+button{margin-top:14px;width:100%;padding:16px;border:none;border-radius:999px;font-family:Manrope,sans-serif;font-size:16px;font-weight:800;color:#2a1a10;background:linear-gradient(135deg,#ffe3a8,#f3b86a);box-shadow:0 10px 34px rgba(243,199,122,.4);cursor:pointer}
+button:disabled{opacity:.6}
+.err{font-family:Manrope,sans-serif;font-size:14px;color:#ff9db8;margin-top:14px;min-height:20px}
+.shake{animation:shake .45s}
+@keyframes shake{20%,60%{transform:translateX(-10px)}40%,80%{transform:translateX(10px)}}
+.load{position:fixed;inset:0;z-index:3;display:none;align-items:center;justify-content:center;flex-direction:column;gap:18px;font-family:Manrope,sans-serif;font-size:14px;color:#c9bfd8;letter-spacing:.06em}
+.load i{width:46px;height:46px;border-radius:50%;border:3px solid rgba(255,223,158,.25);border-top-color:#ffdf9e;animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<div id="sky"></div><canvas id="cv"></canvas>
+<div class="box" id="box">
+  <div class="lock">🔐</div>
+  <h1>Наша вселенная</h1>
+  <p>Это место только для двоих.<br>Введи свой секретный код.</p>
+  <form id="f" autocomplete="off"><input id="code" type="password" placeholder="секретный код" autocapitalize="off" autocorrect="off" spellcheck="false"><button id="go" type="submit">Открыть ✨</button></form>
+  <div class="err" id="err"></div>
+</div>
+<div class="load" id="load"><i></i><span id="lt">открываем вашу вселенную…</span></div>
+<script>
+(function(){
+var SLOTS=[{"w":"anya","s":"HJOPr0dKstNsEgAtjiw59A==","i":"Vzw0o/z2GVYgNga0","k":"o/Q2FWqMpyvDw4r6h6LId9I8MV0GDS4Kxap5aTE7AkTsPzYZsYhLBZAhbG48lXMU","n":210000},{"w":"dan","s":"DZe9LJk80jNEULWVI20jFg==","i":"rNI2o305fYeLONM5","k":"9+SRDU7StFbttriGH4fz9Z40hkbfZZGTpa9UWToXawhi/uPxFoqAF3STz8Jpfdhs","n":210000}],IV='jhm4+tzunsOCtl23';
+var cv=document.getElementById('cv'),c=cv.getContext('2d'),W,H,st=[];
+function sz(){W=innerWidth;H=innerHeight;var d=Math.min(devicePixelRatio||1,2);cv.width=W*d;cv.height=H*d;c.setTransform(d,0,0,d,0,0)}sz();addEventListener('resize',sz);
+for(var i=0;i<180;i++)st.push({x:Math.random(),y:Math.random(),r:Math.random()*1.6+.3,t:Math.random()*6});
+(function lp(){c.clearRect(0,0,W,H);st.forEach(function(s){s.t+=.03;c.fillStyle='rgba(255,255,255,'+(.4+.4*Math.sin(s.t))+')';c.beginPath();c.arc(s.x*W,s.y*H,s.r,0,6.283);c.fill()});requestAnimationFrame(lp)})();
+function b64(s){var b=atob(s),u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u}
+function ub64(u){var s='';for(var i=0;i<u.length;i+=8192)s+=String.fromCharCode.apply(null,u.subarray(i,i+8192));return btoa(s)}
+function norm(s){return s.toLowerCase().replace(/ё/g,'е').replace(/\s+/g,'')}
+var S=window.crypto&&crypto.subtle,blob=null;
+var pre=fetch('app.enc?v=mw37d5rm',{cache:'no-cache'}).then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(t){blob=t;return t});
+function openWith(rawKey,who){document.getElementById('load').style.display='flex';document.getElementById('box').classList.add('out');
+  return pre.then(function(t){return S.importKey('raw',rawKey,'AES-GCM',false,['decrypt']).then(function(k){return S.decrypt({name:'AES-GCM',iv:b64(IV)},k,b64(t.trim()))})})
+  .then(function(buf){var html=new TextDecoder().decode(buf).replace("'%%WHO%%'","'"+who+"'");document.open();document.write(html);document.close()})}
+function tryCode(code){var n=new TextEncoder().encode(norm(code));return S.importKey('raw',n,'PBKDF2',false,['deriveKey']).then(function(base){
+  return SLOTS.reduce(function(p,sl){return p.catch(function(){return S.deriveKey({name:'PBKDF2',salt:b64(sl.s),iterations:sl.n,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']).then(function(dk){return S.decrypt({name:'AES-GCM',iv:b64(sl.i)},dk,b64(sl.k))}).then(function(raw){return{raw:new Uint8Array(raw),who:sl.w}})})},Promise.reject())})}
+if(!S){document.getElementById('err').textContent='Открой ссылку в Safari или Chrome 🙏'}
+try{var sk=localStorage.getItem('nv_k'),sw=localStorage.getItem('nv_w');if(sk&&sw){openWith(b64(sk),sw).catch(function(){localStorage.removeItem('nv_k');location.reload()})}}catch(_){}
+document.getElementById('f').addEventListener('submit',function(e){e.preventDefault();var v=document.getElementById('code').value,btn=document.getElementById('go'),err=document.getElementById('err');if(!v)return;
+  btn.disabled=true;btn.textContent='Проверяю…';err.textContent='';
+  tryCode(v).then(function(res){try{localStorage.setItem('nv_k',ub64(res.raw));localStorage.setItem('nv_w',res.who)}catch(_){}return openWith(res.raw,res.who)})
+  .catch(function(){btn.disabled=false;btn.textContent='Открыть ✨';err.textContent='Код не подошёл. Попробуй ещё раз 💛';var b=document.getElementById('box');b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake');try{navigator.vibrate&&navigator.vibrate([40,40,40])}catch(_){}})});
+})();
+</script>
+</body>
+</html>
