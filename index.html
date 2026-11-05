@@ -52,7 +52,7 @@ button:disabled{opacity:.6}
 <div class="load" id="load"><i></i><span id="lt">открываем вашу вселенную…</span></div>
 <script>
 (function(){
-var SLOTS=[{"w":"anya","s":"SMKM6GfP0RqW7iVUWpfjYQ==","i":"gCcrVqtdExrF7K1+","k":"r4Xy/I5VAbne3Jy2/9BZwIjscHZzGzTUb+Xl9NGtc19V0OETUekG28wR0ZB4ZYjj","n":210000},{"w":"dan","s":"n3pb1VjwYADRy8ZObusxmw==","i":"i2Z3/ddiaq2oJf17","k":"EXmtmLtadC8QiJuWzq5Izvc6FajX5asn0zwJkUrvuksg+mu6i7pWKixR1r7ZLj/C","n":210000}],IV='XHTc7G2Cgd1EPHBu';
+var SLOTS=[{"w":"anya","s":"8i3X9w4RQec6Om/xwhv+Sw==","i":"I5xlsT/zvXp04m/s","k":"izdcoAAZh61s6feVmHZosQh1kZ37CPyyrWED0FDAZAvwwZok7w6phXkXE0lAx8fh","n":210000},{"w":"dan","s":"Iw556UZTIqJ4RWXkSE6rmw==","i":"qV1UDPDTnKVG9AcC","k":"oUvfNy8dRY8XorULWbXBexGaSWG68cCPUziMqc5nSNfqx1cXB1grpPVhZwEew/4b","n":210000}],IV='6FPpfdPU4NuJgneX';
 var cv=document.getElementById('cv'),c=cv.getContext('2d'),W,H,st=[];
 function sz(){W=innerWidth;H=innerHeight;var d=Math.min(devicePixelRatio||1,2);cv.width=W*d;cv.height=H*d;c.setTransform(d,0,0,d,0,0)}sz();addEventListener('resize',sz);
 for(var i=0;i<180;i++)st.push({x:Math.random(),y:Math.random(),r:Math.random()*1.6+.3,t:Math.random()*6});
@@ -63,7 +63,7 @@ function norm(s){return s.toLowerCase().replace(/ё/g,'е').replace(/\s+/g,'')}
 var S=window.crypto&&crypto.subtle,blob=null;
 addEventListener('beforeinstallprompt',function(e){e.preventDefault();window.__bip=e});
 if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){})}
-var pre=fetch('app.enc?v=mw37wmjr',{cache:'no-cache'}).then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(t){blob=t;return t});
+var pre=fetch('app.enc?v=mw38bach',{cache:'no-cache'}).then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(t){blob=t;return t});
 function openWith(rawKey,who){document.getElementById('load').style.display='flex';document.getElementById('box').classList.add('out');
   return pre.then(function(t){return S.importKey('raw',rawKey,'AES-GCM',false,['decrypt']).then(function(k){return S.decrypt({name:'AES-GCM',iv:b64(IV)},k,b64(t.trim()))})})
   .then(function(buf){var html=new TextDecoder().decode(buf).replace("'%%WHO%%'","'"+who+"'").replace("'%%KEY%%'","'"+ub64(new Uint8Array(rawKey))+"'");document.open();document.write(html);document.close()})}
