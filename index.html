@@ -52,7 +52,7 @@ button:disabled{opacity:.6}
 <div class="load" id="load"><i></i><span id="lt">открываем вашу вселенную…</span></div>
 <script>
 (function(){
-var SLOTS=[{"w":"anya","i":"pOx4Ss6TWC3rijDp","k":"OoQ0kKcI0pVWHBIapzJak/EoKbc5XtqOLtfWBVkiWLpLnzz5a/kZs8wVMj5/7uHH"},{"w":"anya","i":"EMBWjfbIsWqIc7zN","k":"ByoM+No0S31tnlQ0TKRP5HHl+nn8GnMY9dTRtCJRrfPCYBsakEB5TNIhDxq8pl8W"},{"w":"anya","i":"eqrs+rQguCgcqtdM","k":"fgRXn5XfZIuDZLImTBkCk83neGQ8x/gY2odO0ubp5sqO18vW5lGm15yeVL9gk2Lu"},{"w":"anya","i":"ghrCnqxtFEyxDBFj","k":"XsZ/UB76oR41+G+iGdCiCex5HPuxRAXSp39UJdiVcRRdTSg/rPpx97yAU/wWl3GM"},{"w":"dan","i":"xcd9oUmIHNLy9nty","k":"hXzgdkK9agYymFLDidYlg+OLiwI1Ak9Vgy/X73Ju9CDUu/Wmn7ibag7BQw49+VEr"},{"w":"dan","i":"Oh5cGlXkcCZVTP+b","k":"uDVVHqAFOLum3LfTPUOuXNkLkjaZerMszoVtO8cvS6twSXmVoKpO16eeVSuexEII"}],SALT='yZmw5kYy84D/51yAuvWOHQ==',ITER=150000,IV='LGZ3vmFi4tPSwghj',VER='mw39znpl',SIZE=1868012;
+var SLOTS=[{"w":"anya","i":"qLtPDbj4y5bZdHrt","k":"HnPrAz3o5LKoAo2Qp0YFlzvSbf/fHjWQwLlqNIuEQMkxeah81MslnWxRuTcmGw//"},{"w":"anya","i":"OL6mGsAZZ5ZUeXPz","k":"ycswU5C3uUhXOO/L+d26gmCBj5qnzgWuqqo1XpZL2tAKwFS99vydOfYnjRlJwhFN"},{"w":"anya","i":"Wshi4eIdjBJtcsAt","k":"8Im7YVoLUTqG2D7grBn/DPC85lIrZ4l8uZqa4XA4XSk0u4j/T/LWC/yVqpZ0rqUj"},{"w":"anya","i":"I6ocSjh3wpWTx3Tu","k":"vB61By0MM2AQGhSQfJY5h8+OvIHgwmy+2I5XKrBRmSMdOhmEbmzMkZeaEk9govoA"},{"w":"dan","i":"0hs3kRzLG+bMVOms","k":"Mh43+/T1hwv+A2Xbxp/oOjr8SP5vYbDPkVPYNQQQWeeCGCpk2IkQxUrPH2FoDFI0"},{"w":"dan","i":"R9nRXMLAS6aYEp42","k":"TZGt7N5iLcfjHZcggrA/NiA/eEfoBWXx8O2rz2cCwDS5d5ZLYurJZVfCwEItEEQA"}],SALT='lW6U4xWucjzoYceCGVzUjg==',ITER=150000,IV='MFSy4XsCBTgI6YoY',VER='mw3ajryt',SIZE=1555786;
 var $=function(i){return document.getElementById(i)};
 var cv=$('cv'),c=cv.getContext('2d'),W,H,st=[];
 function sz(){W=innerWidth;H=innerHeight;var d=Math.min(devicePixelRatio||1,2);cv.width=W*d;cv.height=H*d;c.setTransform(d,0,0,d,0,0)}sz();addEventListener('resize',sz);
@@ -68,13 +68,13 @@ function err(t){$('err').innerHTML=t}
 function setLoad(on,t){$('load').style.display=on?'flex':'none';if(t)$('lt').innerHTML=t;$('box').classList.toggle('out',!!on)}
 /* загрузка с прогрессом и повторами */
 var dl=null;
-function download(){if(dl)return dl;dl=new Promise(function(res,rej){var tries=0;(function go(){tries++;var x=new XMLHttpRequest();x.open('GET','app.enc?v='+VER,true);x.timeout=90000;
+function download(){if(dl)return dl;dl=new Promise(function(res,rej){var tries=0;(function go(){tries++;var x=new XMLHttpRequest();x.open('GET','app.bin?v='+VER,true);x.responseType='arraybuffer';x.timeout=90000;
   x.onprogress=function(e){var tot=e.lengthComputable?e.total:SIZE;var p=Math.min(99,Math.round(e.loaded/tot*100));if($('load').style.display==='flex')$('lt').innerHTML='открываем вашу вселенную… '+p+'%'};
-  x.onload=function(){if(x.status===200&&x.responseText.length>1000)res(x.responseText);else fail()};x.onerror=fail;x.ontimeout=fail;x.send();
+  x.onload=function(){if(x.status===200&&x.response&&x.response.byteLength>1000)res(new Uint8Array(x.response));else fail()};x.onerror=fail;x.ontimeout=fail;x.send();
   function fail(){if(tries<3)setTimeout(go,1500*tries);else{dl=null;rej('net')}}})()});return dl}
 download().catch(function(){});
 function openWith(raw,who){setLoad(true,'открываем вашу вселенную…');
-  return download().then(function(t){return S.importKey('raw',raw,'AES-GCM',false,['decrypt']).then(function(k){return S.decrypt({name:'AES-GCM',iv:b64(IV)},k,b64(t.trim()))}).catch(function(){throw 'dec'})})
+  return download().then(function(t){return S.importKey('raw',raw,'AES-GCM',false,['decrypt']).then(function(k){return S.decrypt({name:'AES-GCM',iv:b64(IV)},k,t)}).catch(function(){throw 'dec'})})
   .then(function(buf){var html=new TextDecoder().decode(buf).replace("'%%WHO%%'","'"+who+"'").replace("'%%KEY%%'","'"+ub64(new Uint8Array(raw))+"'");document.open();document.write(html);document.close()})}
 function fail(e){setLoad(false);var btn=$('go');btn.disabled=false;btn.textContent='Открыть ✨';
   if(e==='net')err('Не получилось загрузить — слабый интернет 📶<br>Подожди чуть-чуть и нажми «Открыть» ещё раз.');
