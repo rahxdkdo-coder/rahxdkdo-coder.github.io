@@ -6,6 +6,12 @@
 <meta name="theme-color" content="#070b1f">
 <meta name="robots" content="noindex,nofollow">
 <title>Наша вселенная ✨</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="pwa/icon-180.png">
+<link rel="icon" href="pwa/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Вселенная">
 <meta property="og:title" content="✨ Только для двоих">
 <meta property="og:description" content="Введи секретный код">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,7 +52,7 @@ button:disabled{opacity:.6}
 <div class="load" id="load"><i></i><span id="lt">открываем вашу вселенную…</span></div>
 <script>
 (function(){
-var SLOTS=[{"w":"anya","s":"HJOPr0dKstNsEgAtjiw59A==","i":"Vzw0o/z2GVYgNga0","k":"o/Q2FWqMpyvDw4r6h6LId9I8MV0GDS4Kxap5aTE7AkTsPzYZsYhLBZAhbG48lXMU","n":210000},{"w":"dan","s":"DZe9LJk80jNEULWVI20jFg==","i":"rNI2o305fYeLONM5","k":"9+SRDU7StFbttriGH4fz9Z40hkbfZZGTpa9UWToXawhi/uPxFoqAF3STz8Jpfdhs","n":210000}],IV='jhm4+tzunsOCtl23';
+var SLOTS=[{"w":"anya","s":"SMKM6GfP0RqW7iVUWpfjYQ==","i":"gCcrVqtdExrF7K1+","k":"r4Xy/I5VAbne3Jy2/9BZwIjscHZzGzTUb+Xl9NGtc19V0OETUekG28wR0ZB4ZYjj","n":210000},{"w":"dan","s":"n3pb1VjwYADRy8ZObusxmw==","i":"i2Z3/ddiaq2oJf17","k":"EXmtmLtadC8QiJuWzq5Izvc6FajX5asn0zwJkUrvuksg+mu6i7pWKixR1r7ZLj/C","n":210000}],IV='XHTc7G2Cgd1EPHBu';
 var cv=document.getElementById('cv'),c=cv.getContext('2d'),W,H,st=[];
 function sz(){W=innerWidth;H=innerHeight;var d=Math.min(devicePixelRatio||1,2);cv.width=W*d;cv.height=H*d;c.setTransform(d,0,0,d,0,0)}sz();addEventListener('resize',sz);
 for(var i=0;i<180;i++)st.push({x:Math.random(),y:Math.random(),r:Math.random()*1.6+.3,t:Math.random()*6});
@@ -55,10 +61,12 @@ function b64(s){var b=atob(s),u=new Uint8Array(b.length);for(var i=0;i<b.length;
 function ub64(u){var s='';for(var i=0;i<u.length;i+=8192)s+=String.fromCharCode.apply(null,u.subarray(i,i+8192));return btoa(s)}
 function norm(s){return s.toLowerCase().replace(/ё/g,'е').replace(/\s+/g,'')}
 var S=window.crypto&&crypto.subtle,blob=null;
-var pre=fetch('app.enc?v=mw37d5rm',{cache:'no-cache'}).then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(t){blob=t;return t});
+addEventListener('beforeinstallprompt',function(e){e.preventDefault();window.__bip=e});
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){})}
+var pre=fetch('app.enc?v=mw37wmjr',{cache:'no-cache'}).then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(t){blob=t;return t});
 function openWith(rawKey,who){document.getElementById('load').style.display='flex';document.getElementById('box').classList.add('out');
   return pre.then(function(t){return S.importKey('raw',rawKey,'AES-GCM',false,['decrypt']).then(function(k){return S.decrypt({name:'AES-GCM',iv:b64(IV)},k,b64(t.trim()))})})
-  .then(function(buf){var html=new TextDecoder().decode(buf).replace("'%%WHO%%'","'"+who+"'");document.open();document.write(html);document.close()})}
+  .then(function(buf){var html=new TextDecoder().decode(buf).replace("'%%WHO%%'","'"+who+"'").replace("'%%KEY%%'","'"+ub64(new Uint8Array(rawKey))+"'");document.open();document.write(html);document.close()})}
 function tryCode(code){var n=new TextEncoder().encode(norm(code));return S.importKey('raw',n,'PBKDF2',false,['deriveKey']).then(function(base){
   return SLOTS.reduce(function(p,sl){return p.catch(function(){return S.deriveKey({name:'PBKDF2',salt:b64(sl.s),iterations:sl.n,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']).then(function(dk){return S.decrypt({name:'AES-GCM',iv:b64(sl.i)},dk,b64(sl.k))}).then(function(raw){return{raw:new Uint8Array(raw),who:sl.w}})})},Promise.reject())})}
 if(!S){document.getElementById('err').textContent='Открой ссылку в Safari или Chrome 🙏'}
