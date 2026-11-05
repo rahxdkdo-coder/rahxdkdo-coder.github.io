@@ -46,35 +46,49 @@ button:disabled{opacity:.6}
   <div class="lock">🔐</div>
   <h1>Наша вселенная</h1>
   <p>Это место только для двоих.<br>Введи свой секретный код.</p>
-  <form id="f" autocomplete="off"><input id="code" type="password" placeholder="секретный код" autocapitalize="off" autocorrect="off" spellcheck="false"><button id="go" type="submit">Открыть ✨</button></form>
+  <form id="f" autocomplete="off"><input id="code" type="text" placeholder="секретный код" autocomplete="off" inputmode="text" autocapitalize="off" autocorrect="off" spellcheck="false"><button id="go" type="submit">Открыть ✨</button></form>
   <div class="err" id="err"></div>
 </div>
 <div class="load" id="load"><i></i><span id="lt">открываем вашу вселенную…</span></div>
 <script>
 (function(){
-var SLOTS=[{"w":"anya","s":"8i3X9w4RQec6Om/xwhv+Sw==","i":"I5xlsT/zvXp04m/s","k":"izdcoAAZh61s6feVmHZosQh1kZ37CPyyrWED0FDAZAvwwZok7w6phXkXE0lAx8fh","n":210000},{"w":"dan","s":"Iw556UZTIqJ4RWXkSE6rmw==","i":"qV1UDPDTnKVG9AcC","k":"oUvfNy8dRY8XorULWbXBexGaSWG68cCPUziMqc5nSNfqx1cXB1grpPVhZwEew/4b","n":210000}],IV='6FPpfdPU4NuJgneX';
-var cv=document.getElementById('cv'),c=cv.getContext('2d'),W,H,st=[];
+var SLOTS=[{"w":"anya","i":"I2iyorE1TfZpt1xq","k":"e/+W3OEHuJLytXrkfTujNUZKnkHgcwtQuhwsJnXIMBJd/Qh/Wkf5gMvcpTvsJmDt"},{"w":"anya","i":"zDzlCy8sknJMZE1o","k":"2BHEkToShpQttMW/BQVDQ7mI3x997MEKI06jdXtwtTI3MTiu9oLT3g8XpNM+Xg7N"},{"w":"anya","i":"iZp0O9psnRhwVboV","k":"ASbv9vmh+cFc+cRJoyLVMDmrTj0x9ABzd4Q/sW4cmXj12J4PZACbVaz/R4mEsKYo"},{"w":"anya","i":"DU0twX5NG0aszA9Z","k":"LcGD0AIyIKNQaQ0P050HiSkoqcMM3xzOONsSSBBCwql4+eoLV3TSAwd/vg8jpt+I"},{"w":"dan","i":"Y3vbxyE8aj5WIzVK","k":"mQgrfEjOoJMW0Hs3yxJbNwn2yW5LQvvZG/Dlvx6j7Jx6QLGC6ogwPmhcR5tQckeV"},{"w":"dan","i":"vLmN4voS/0dl8TNE","k":"dLlRlHuQbJq7UUgqsA3WAIRTk6nl0vppQEL4VW0AP4YzIn2xklXFggvqEaLc4iUi"}],SALT='KZ3L4+rRrF3ECrPbHOVG7Q==',ITER=150000,IV='Fwzw4CJyCfKgNQbv',VER='mw38sriq',SIZE=1842904;
+var $=function(i){return document.getElementById(i)};
+var cv=$('cv'),c=cv.getContext('2d'),W,H,st=[];
 function sz(){W=innerWidth;H=innerHeight;var d=Math.min(devicePixelRatio||1,2);cv.width=W*d;cv.height=H*d;c.setTransform(d,0,0,d,0,0)}sz();addEventListener('resize',sz);
-for(var i=0;i<180;i++)st.push({x:Math.random(),y:Math.random(),r:Math.random()*1.6+.3,t:Math.random()*6});
+for(var i=0;i<160;i++)st.push({x:Math.random(),y:Math.random(),r:Math.random()*1.6+.3,t:Math.random()*6});
 (function lp(){c.clearRect(0,0,W,H);st.forEach(function(s){s.t+=.03;c.fillStyle='rgba(255,255,255,'+(.4+.4*Math.sin(s.t))+')';c.beginPath();c.arc(s.x*W,s.y*H,s.r,0,6.283);c.fill()});requestAnimationFrame(lp)})();
 function b64(s){var b=atob(s),u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u}
 function ub64(u){var s='';for(var i=0;i<u.length;i+=8192)s+=String.fromCharCode.apply(null,u.subarray(i,i+8192));return btoa(s)}
-function norm(s){return s.toLowerCase().replace(/ё/g,'е').replace(/\s+/g,'')}
-var S=window.crypto&&crypto.subtle,blob=null;
+function norm(s){return (s||'').toLowerCase().replace(/ё/g,'е').replace(/[\s.,!_\-]+/g,'')}
 addEventListener('beforeinstallprompt',function(e){e.preventDefault();window.__bip=e});
-if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){})}
-var pre=fetch('app.enc?v=mw38bach',{cache:'no-cache'}).then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(t){blob=t;return t});
-function openWith(rawKey,who){document.getElementById('load').style.display='flex';document.getElementById('box').classList.add('out');
-  return pre.then(function(t){return S.importKey('raw',rawKey,'AES-GCM',false,['decrypt']).then(function(k){return S.decrypt({name:'AES-GCM',iv:b64(IV)},k,b64(t.trim()))})})
-  .then(function(buf){var html=new TextDecoder().decode(buf).replace("'%%WHO%%'","'"+who+"'").replace("'%%KEY%%'","'"+ub64(new Uint8Array(rawKey))+"'");document.open();document.write(html);document.close()})}
+if('serviceWorker' in navigator){try{navigator.serviceWorker.register('sw.js').catch(function(){})}catch(_){}}
+var S=(window.crypto&&crypto.subtle)?crypto.subtle:null;
+function err(t){$('err').innerHTML=t}
+function setLoad(on,t){$('load').style.display=on?'flex':'none';if(t)$('lt').innerHTML=t;$('box').classList.toggle('out',!!on)}
+/* загрузка с прогрессом и повторами */
+var dl=null;
+function download(){if(dl)return dl;dl=new Promise(function(res,rej){var tries=0;(function go(){tries++;var x=new XMLHttpRequest();x.open('GET','app.enc?v='+VER,true);x.timeout=90000;
+  x.onprogress=function(e){var tot=e.lengthComputable?e.total:SIZE;var p=Math.min(99,Math.round(e.loaded/tot*100));if($('load').style.display==='flex')$('lt').innerHTML='открываем вашу вселенную… '+p+'%'};
+  x.onload=function(){if(x.status===200&&x.responseText.length>1000)res(x.responseText);else fail()};x.onerror=fail;x.ontimeout=fail;x.send();
+  function fail(){if(tries<3)setTimeout(go,1500*tries);else{dl=null;rej('net')}}})()});return dl}
+download().catch(function(){});
+function openWith(raw,who){setLoad(true,'открываем вашу вселенную…');
+  return download().then(function(t){return S.importKey('raw',raw,'AES-GCM',false,['decrypt']).then(function(k){return S.decrypt({name:'AES-GCM',iv:b64(IV)},k,b64(t.trim()))}).catch(function(){throw 'dec'})})
+  .then(function(buf){var html=new TextDecoder().decode(buf).replace("'%%WHO%%'","'"+who+"'").replace("'%%KEY%%'","'"+ub64(new Uint8Array(raw))+"'");document.open();document.write(html);document.close()})}
+function fail(e){setLoad(false);var btn=$('go');btn.disabled=false;btn.textContent='Открыть ✨';
+  if(e==='net')err('Не получилось загрузить — слабый интернет 📶<br>Подожди чуть-чуть и нажми «Открыть» ещё раз.');
+  else if(e==='dec'){try{localStorage.removeItem('nv_k')}catch(_){}err('Сайт обновился — введи код ещё раз 💛')}
+  else err('Что-то пошло не так. Попробуй открыть ссылку в Safari или Chrome 🙏')}
 function tryCode(code){var n=new TextEncoder().encode(norm(code));return S.importKey('raw',n,'PBKDF2',false,['deriveKey']).then(function(base){
-  return SLOTS.reduce(function(p,sl){return p.catch(function(){return S.deriveKey({name:'PBKDF2',salt:b64(sl.s),iterations:sl.n,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']).then(function(dk){return S.decrypt({name:'AES-GCM',iv:b64(sl.i)},dk,b64(sl.k))}).then(function(raw){return{raw:new Uint8Array(raw),who:sl.w}})})},Promise.reject())})}
-if(!S){document.getElementById('err').textContent='Открой ссылку в Safari или Chrome 🙏'}
-try{var sk=localStorage.getItem('nv_k'),sw=localStorage.getItem('nv_w');if(sk&&sw){openWith(b64(sk),sw).catch(function(){localStorage.removeItem('nv_k');location.reload()})}}catch(_){}
-document.getElementById('f').addEventListener('submit',function(e){e.preventDefault();var v=document.getElementById('code').value,btn=document.getElementById('go'),err=document.getElementById('err');if(!v)return;
-  btn.disabled=true;btn.textContent='Проверяю…';err.textContent='';
-  tryCode(v).then(function(res){try{localStorage.setItem('nv_k',ub64(res.raw));localStorage.setItem('nv_w',res.who)}catch(_){}return openWith(res.raw,res.who)})
-  .catch(function(){btn.disabled=false;btn.textContent='Открыть ✨';err.textContent='Код не подошёл. Попробуй ещё раз 💛';var b=document.getElementById('box');b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake');try{navigator.vibrate&&navigator.vibrate([40,40,40])}catch(_){}})});
+  return S.deriveKey({name:'PBKDF2',salt:b64(SALT),iterations:ITER,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt'])}).then(function(dk){
+  return SLOTS.reduce(function(p,sl){return p.catch(function(){return S.decrypt({name:'AES-GCM',iv:b64(sl.i)},dk,b64(sl.k)).then(function(raw){return{raw:new Uint8Array(raw),who:sl.w}})})},Promise.reject())}).catch(function(){throw 'code'})}
+if(!S){err('Этот браузер не умеет открывать нашу вселенную 😔<br>Нажми ⋮ или «…» вверху → «Открыть в браузере» (Safari или Chrome).');$('go').disabled=true}
+else{try{var sk=localStorage.getItem('nv_k'),sw=localStorage.getItem('nv_w');if(sk&&sw)openWith(b64(sk),sw).catch(fail)}catch(_){}}
+$('f').addEventListener('submit',function(e){e.preventDefault();if(!S)return;var v=$('code').value,btn=$('go');if(!norm(v))return;
+  btn.disabled=true;btn.textContent='Проверяю…';err('');
+  tryCode(v).then(function(r){try{localStorage.setItem('nv_k',ub64(r.raw));localStorage.setItem('nv_w',r.who)}catch(_){}return openWith(r.raw,r.who)})
+  .catch(function(x){if(x==='code'){btn.disabled=false;btn.textContent='Открыть ✨';err('Код не подошёл. Проверь буквы и цифры 💛');var b=$('box');b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake');try{navigator.vibrate&&navigator.vibrate([40,40,40])}catch(_){}}else fail(x)})});
 })();
 </script>
 </body>
