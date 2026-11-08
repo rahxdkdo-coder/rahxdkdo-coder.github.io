@@ -52,7 +52,7 @@ button:disabled{opacity:.6}
 <div class="load" id="load"><i></i><span id="lt">открываем вашу вселенную…</span></div>
 <script>
 (function(){
-var SLOTS=[{"w":"anya","i":"MImo8/4H+d9jEwk3","k":"pKm6sX44CdvRyJ6Csipju2jtF5ZK7GVvxi2QlQI9ENqr7Yep1oCwB18CfcDwTfvc"},{"w":"anya","i":"jf5+yhksO8H69zY8","k":"5ZCI9MQZPDyn7CeBtPjtykKJbOKUg/ksSupgZq1pM2n80p6yxFzxBPD6bfbrs7og"},{"w":"anya","i":"OAPv8sWYQOY9X6hi","k":"v/zml0N8E/WsG0A3rETE06xia8OI+NzXeONocl4QGMPgQwl7YbBjNh49s2ILgbsy"},{"w":"anya","i":"746LFz/pkzOsA1Z+","k":"howzGih5HbLtuE5pqsVPnxPdDaQw7ZvFc4L1XlM0FEHfI5tRV3camaoRyOdNlUhA"},{"w":"dan","i":"6q+BDfKRmwWC1+Ds","k":"w4NlekWhrLEQHzbUSIvjByxV0Rr/oc8uGCWqZgKkr6QJC+YlpSvgvzJAZLeURb0c"},{"w":"dan","i":"+NscfKMBiqPtepoi","k":"M1qQIYopMiG/EcuCR6ByRRomb95xAMkNiW/vh8A9fO7mSE0gI0c4ERtA1CZZ/VIJ"}],SALT='ggQjFZ2GBcfeXQST5I/DKw==',ITER=150000,IV='gf4dhFaY2hvEMOII',VER='mw80w8rm',SIZE=1615944;
+var SLOTS=[{"w":"anya","i":"WG74OCk+DtyHiuKw","k":"rlhtUCKw06qks/qUTVK66AXstCbzfevXiykrPbVJtrV90cAKL2nEBL2IX+K/UOMW"},{"w":"anya","i":"wqhbcNhwZ0DGq/ML","k":"FKtJ7ykI/C0Uctzs4Of74kKpzss1tdP7NIDFm4uI3du1pC4z2GSWV3sPu+5RXSrR"},{"w":"anya","i":"03JGAj6rNuOy6UB+","k":"1oP7L18Dw4asmIcOIT8Xi+GJuhR2RBdDE4bZaN8crVUJRM0fOcxjq6+qT5gqiDkt"},{"w":"anya","i":"rHj2YRh6LrxMElb6","k":"1vj2YY6Fiz8gtJtrchWfXesWU9aiJt5sjCODHN7SpJvdSl9sQAgt3bXhJ2bM1L1g"},{"w":"dan","i":"piqaVWLTCpYCYKSy","k":"6CjdMn32gdR0HeeqduyRPfAAH6h4Mq3/XdPu62ApIXfM3tNU63FdFHocPOF1RIFE"},{"w":"dan","i":"V6bUP4N5BufV03uP","k":"bMateJemG8CHJcjNOtW1ZzcjYwduJFxS1BSLkvFaFZmLhgS28b8IPhwSGtxjaCWp"}],SALT='wX2nwGRgvVYUMIf+KulI8Q==',ITER=150000,IV='0HiFGiT4l55Mwr02',VER='mw81zzbo',SIZE=248793,ISIZE=1047636;
 var $=function(i){return document.getElementById(i)};
 var cv=$('cv'),c=cv.getContext('2d'),W,H,st=[];
 function sz(){W=innerWidth;H=innerHeight;var d=Math.min(devicePixelRatio||1,2);cv.width=W*d;cv.height=H*d;c.setTransform(d,0,0,d,0,0)}sz();addEventListener('resize',sz);
@@ -67,15 +67,17 @@ var S=(window.crypto&&crypto.subtle)?crypto.subtle:null;
 function err(t){$('err').innerHTML=t}
 function setLoad(on,t){$('load').style.display=on?'flex':'none';if(t)$('lt').innerHTML=t;$('box').classList.toggle('out',!!on)}
 /* загрузка с прогрессом и повторами */
-var dl=null;
-function download(){if(dl)return dl;dl=new Promise(function(res,rej){var tries=0;(function go(){tries++;var x=new XMLHttpRequest();x.open('GET','app.bin?v='+VER,true);x.responseType='arraybuffer';x.timeout=90000;
-  x.onprogress=function(e){var tot=e.lengthComputable?e.total:SIZE;var p=Math.min(99,Math.round(e.loaded/tot*100));if($('load').style.display==='flex')$('lt').innerHTML='открываем вашу вселенную… '+p+'%'};
-  x.onload=function(){if(x.status===200&&x.response&&x.response.byteLength>1000)res(new Uint8Array(x.response));else fail()};x.onerror=fail;x.ontimeout=fail;x.send();
-  function fail(){if(tries<3)setTimeout(go,1500*tries);else{dl=null;rej('net')}}})()});return dl}
-download().catch(function(){});
+var dl=null,LD=[0,0];
+function getBin(name,sz,slot){return new Promise(function(res,rej){var tries=0;(function go(){tries++;var x=new XMLHttpRequest();x.open('GET',name+'?v='+VER,true);x.responseType='arraybuffer';x.timeout=120000;
+  x.onprogress=function(e){LD[slot]=e.loaded;var p=Math.min(99,Math.round((LD[0]+LD[1])/(SIZE+ISIZE)*100));var L=$('load');if(L&&L.style.display==='flex')$('lt').innerHTML='открываем вашу вселенную… '+p+'%'};
+  x.onload=function(){if(x.status===200&&x.response&&x.response.byteLength>1000){LD[slot]=sz;res(new Uint8Array(x.response))}else fail()};x.onerror=fail;x.ontimeout=fail;x.send();
+  function fail(){if(tries<3)setTimeout(go,1500*tries);else rej('net')}})()})}
+function download(){if(dl)return dl;var a=getBin('app.bin',SIZE,0),b=getBin('img.bin',ISIZE,1);b.catch(function(){});dl={app:a,img:b};a.catch(function(){dl=null});return dl}
+download();
 function openWith(raw,who){setLoad(true,'открываем вашу вселенную…');
-  return download().then(function(t){return S.importKey('raw',raw,'AES-GCM',false,['decrypt']).then(function(k){return S.decrypt({name:'AES-GCM',iv:b64(IV)},k,t)}).catch(function(){throw 'dec'})})
-  .then(function(buf){var html=new TextDecoder().decode(buf).replace("'%%WHO%%'","'"+who+"'").replace("'%%KEY%%'","'"+ub64(new Uint8Array(raw))+"'");document.open();document.write(html);document.close()})}
+  var D=download();window.__nvImg=D.img.then(function(b){return S.importKey('raw',raw,'AES-GCM',false,['decrypt']).then(function(k){return S.decrypt({name:'AES-GCM',iv:b.subarray(0,12)},k,b.subarray(12))})});window.__nvImg.catch(function(){});
+  return D.app.then(function(t){return S.importKey('raw',raw,'AES-GCM',false,['decrypt']).then(function(k){return S.decrypt({name:'AES-GCM',iv:b64(IV)},k,t)}).catch(function(){throw 'dec'})})
+  .then(function(buf){var html=new TextDecoder().decode(buf).split("'%%WHO%%'").join("'"+who+"'").split("'%%KEY%%'").join("'"+ub64(new Uint8Array(raw))+"'");document.open();document.write(html);document.close()})}
 function fail(e){setLoad(false);var btn=$('go');btn.disabled=false;btn.textContent='Открыть ✨';
   if(e==='net')err('Не получилось загрузить — слабый интернет 📶<br>Подожди чуть-чуть и нажми «Открыть» ещё раз.');
   else if(e==='dec'){try{localStorage.removeItem('nv_k')}catch(_){}err('Сайт обновился — введи код ещё раз 💛')}
