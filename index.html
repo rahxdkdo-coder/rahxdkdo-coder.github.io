@@ -32,7 +32,10 @@ input{width:100%;margin-top:28px;padding:16px 18px;border-radius:18px;border:1px
 input:focus{border-color:#ffdf9e;box-shadow:0 0 24px rgba(255,223,158,.3)}
 button{margin-top:14px;width:100%;padding:16px;border:none;border-radius:999px;font-family:Manrope,sans-serif;font-size:16px;font-weight:800;color:#2a1a10;background:linear-gradient(135deg,#ffe3a8,#f3b86a);box-shadow:0 10px 34px rgba(243,199,122,.4);cursor:pointer}
 button:disabled{opacity:.6}
-.err{font-family:Manrope,sans-serif;font-size:14px;color:#ff9db8;margin-top:14px;min-height:20px}
+.err{font-family:Manrope,sans-serif;font-size:14px;color:#ff9db8;margin-top:14px;min-height:20px;line-height:1.45}
+.fixb{margin-top:10px;background:none;border:1px solid rgba(255,223,158,.5);color:#ffdf9e;border-radius:999px;padding:8px 14px;font:600 13px Manrope,sans-serif}
+.dt{margin-top:12px;color:rgba(255,255,255,.55);font-size:11px;text-align:left}.dt summary{cursor:pointer;text-align:center}.dt div{margin-top:6px;word-break:break-word}
+.lslow{display:none;margin-top:14px;font:500 12px Manrope,sans-serif;color:rgba(255,255,255,.6);text-align:center;max-width:280px;line-height:1.45}
 .shake{animation:shake .45s}
 @keyframes shake{20%,60%{transform:translateX(-10px)}40%,80%{transform:translateX(10px)}}
 .load{position:fixed;inset:0;z-index:3;display:none;align-items:center;justify-content:center;flex-direction:column;gap:18px;font-family:Manrope,sans-serif;font-size:14px;color:#c9bfd8;letter-spacing:.06em}
@@ -49,10 +52,10 @@ button:disabled{opacity:.6}
   <form id="f" autocomplete="off"><input id="code" type="text" placeholder="секретный код" autocomplete="off" inputmode="text" autocapitalize="off" autocorrect="off" spellcheck="false"><button id="go" type="submit">Открыть ✨</button></form>
   <div class="err" id="err"></div>
 </div>
-<div class="load" id="load"><i></i><span id="lt">открываем вашу вселенную…</span></div>
+<div class="load" id="load"><i></i><span id="lt">открываем вашу вселенную…</span><div class="lslow" id="lslow"></div></div>
 <script>
 (function(){
-var SLOTS=[{"w":"anya","i":"5qSrAfotNJ26VpnJ","k":"qhwaWOHso1sjNlw7r1faKBWP6l7LDsYcM96ApH6XnwWwO/AJp99zEu/vO+uAy+Js"},{"w":"anya","i":"f5Zx7r1xUgwI2IHT","k":"34j1hisDjzOz1NlHm/C5ypLcNEdU7LdSzKdvH2fe1ahBNOwk++h8ICjX58X2A7sR"},{"w":"anya","i":"gRhDAHRpnp6r8OIe","k":"6PwaWPCa7aA++AofrBsWU6pVq/6X6mNpWjvVU75TaZYWnFWqvvT/hjCGYKb33RKQ"},{"w":"anya","i":"JYJ7wzhCuZ+dk45v","k":"tGmH2rf7iXZtgBOdJqufvsUXh05qlNI+XTNSyU6qTapxKY/I0mk/v7aZWwcMZKcM"},{"w":"anya","i":"OghX+J2CBCENonn2","k":"B5MNtoeqBOxtdT9m6suHe9w+i3f/oXZfrmXS8CLUqcpBkOwR2nEBSDlH7IM6z1Yw"},{"w":"anya","i":"u1aTYMRCrHshhiOr","k":"ikdt5fpNynTY0f1u4pOI/TJsW/NdxuTjZtOr/9EKxEHGS80MEe9pJTV49wO31WJv"},{"w":"dan","i":"lhQ60E4bMVNT3z6L","k":"ZF895mgUv7mqNb88dPAAwvHYUTxMVEkFBYshmXf3kTrgIJ9XfJ1rkCxIfia27Gez"},{"w":"dan","i":"9iZ7tY6zTAeTMVpE","k":"NDbrfDvbZb3HgYGzrtEyVjrv7olZN1GHySuvIceQfyJJHwUga9AnFzzykjnkz9T1"},{"w":"dan","i":"JVVwDaflz9QI+W7/","k":"XSQa96qdbuunNpfm04ABkpoGSLJ1CscaDEtHlGGsQic9dVpglngm5+txrQQZPjk+"},{"w":"dan","i":"j2AXtZD3weNK9ppm","k":"AZMvJvNU8c2DN/ts6zEaS6aqf4YIdETJVbWDygp3UBqClBwCnAyDjF9LBZdhKvKV"}],SALT='d8j7H/tboN0555HRMRGVLA==',ITER=150000,IV='i9wmL6gtIoFATXjl',VER='mw8wkwlo',SIZE=292799,ISIZE=1047636;
+var SLOTS=[{"w":"anya","i":"Zz/u9KMW2K4Pv6xq","k":"VauVBHk14Tm/p7YmeslupKoGr1ZixwzwOQ7jdnukIUJLko9xrhIaUAMz85oJENHt"},{"w":"anya","i":"SGUcUN/nbwVPNBUB","k":"GgEiXrIp3xFRYOy5JDnEK62SKii8wILWX4MJdLM8TMkZvft1KnRPZi7q8mzMR7rD"},{"w":"anya","i":"HTbYxDvewtITw6j8","k":"DdHmdD1XNbV96RdHrgs4FEISZI6Yz7KAz8HanmLF+p0pFthMPqwfMxxnmpM0J1vQ"},{"w":"anya","i":"zIaj0mEwH66u5i3k","k":"alz9G3WrTiTgM+/CCJ/c3w6958bp6ZRXEYdQPkIUEYAmW1Jbyu0zbXXoF5CsjLaA"},{"w":"anya","i":"bHO/QXs2ReplW9NH","k":"GTr27p/T/YZ8T2FWv3j5zm6WQGXfJVDmn+hZmxpzAZa3+2HilXnJcU72wcLQy6gQ"},{"w":"anya","i":"7C5b9KBZ1qTG9GRQ","k":"bez7l2m87OyHO9WFsG2Qm+eJf1j4Z/+pP6pz5csZ30pXgizVDmRWZvJNx5+xDVKv"},{"w":"dan","i":"PQgO+GXiJY9QpHny","k":"LrcyTF/M5FjFYDp664EwFRi48p46Eu1KPfUNe/Dr2+QSdJMIyLfBCwZrk6ESpcZh"},{"w":"dan","i":"i+loJFWlKDj6XOVK","k":"fBM1RG3/CsjZfjZXPPUghAVf2eeCrbdL8CFjqPd/0ZwQvRIWV3W3b03s7PpswDRY"},{"w":"dan","i":"guE09lLDTsN7knQ0","k":"SKe1l8GX3zzaNV4MQSbOskqHSNmVGkotjnrCCeGh0VufA8pcxWve6FSNRMvKyiv+"},{"w":"dan","i":"tmKBNv4Yfbl9zJ9p","k":"QRp6KTToAEs/+hx4qQQfiOvA1uiTcAbgDNMhMAcHKuHiO6vI1XELwjDloSlGD6R3"}],SALT='5haBoSJsObm9yxXb6oJnSw==',ITER=150000,IV='WWsSBS/QxGRl5I2a',VER='mw901xuh',SIZE=301471,ISIZE=1047636;
 var $=function(i){return document.getElementById(i)};
 var cv=$('cv'),c=cv.getContext('2d'),W,H,st=[];
 function sz(){W=innerWidth;H=innerHeight;var d=Math.min(devicePixelRatio||1,2);cv.width=W*d;cv.height=H*d;c.setTransform(d,0,0,d,0,0)}sz();addEventListener('resize',sz);
@@ -62,26 +65,58 @@ function b64(s){var b=atob(s),u=new Uint8Array(b.length);for(var i=0;i<b.length;
 function ub64(u){var s='';for(var i=0;i<u.length;i+=8192)s+=String.fromCharCode.apply(null,u.subarray(i,i+8192));return btoa(s)}
 function norm(s){return (s||'').toLowerCase().replace(/ё/g,'е').replace(/[\s.,!_\-]+/g,'')}
 addEventListener('beforeinstallprompt',function(e){e.preventDefault();window.__bip=e});
-if('serviceWorker' in navigator){try{navigator.serviceWorker.register('sw.js').catch(function(){})}catch(_){}}
+if('serviceWorker' in navigator){try{navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).catch(function(){})}catch(_){}}
 var S=(window.crypto&&crypto.subtle)?crypto.subtle:null;
 function err(t){$('err').innerHTML=t}
-function setLoad(on,t){$('load').style.display=on?'flex':'none';if(t)$('lt').innerHTML=t;$('box').classList.toggle('out',!!on)}
-/* загрузка с прогрессом и повторами */
-var dl=null,LD=[0,0];
-function getBin(name,sz,slot){return new Promise(function(res,rej){var tries=0;(function go(){tries++;var x=new XMLHttpRequest();x.open('GET',name+'?v='+VER,true);x.responseType='arraybuffer';x.timeout=120000;
-  x.onprogress=function(e){LD[slot]=e.loaded;var p=Math.min(99,Math.round((LD[0]+LD[1])/(SIZE+ISIZE)*100));var L=$('load');if(L&&L.style.display==='flex')$('lt').innerHTML='открываем вашу вселенную… '+p+'%'};
-  x.onload=function(){if(x.status===200&&x.response&&x.response.byteLength>1000){LD[slot]=sz;res(new Uint8Array(x.response))}else fail()};x.onerror=fail;x.ontimeout=fail;x.send();
-  function fail(){if(tries<3)setTimeout(go,1500*tries);else rej('net')}})()})}
-function download(){if(dl)return dl;var a=getBin('app.bin',SIZE,0),b=getBin('img.bin',ISIZE,1);b.catch(function(){});dl={app:a,img:b};a.catch(function(){dl=null});return dl}
+var slowT=0;function setLoad(on,t){$('load').style.display=on?'flex':'none';if(t)$('lt').innerHTML=t;$('box').classList.toggle('out',!!on);clearInterval(slowT);var sl=$('lslow');sl.style.display='none';var t0=Date.now();
+  if(on)slowT=setInterval(function(){var s=Math.round((Date.now()-t0)/1000);if(s<12)return;sl.style.display='block';var last=LOG.length?LOG[LOG.length-1]:'';sl.innerHTML='Первая загрузка после обновления — около 1,3 МБ, дальше будет открываться сразу 💛<br>'+s+' сек'+(last?' · '+last:'')},1000)}
+/* ===== загрузка: сначала сохранённая копия, потом сайт, потом запасные серверы ===== */
+var dl=null,LD=[0,0],LOG=[],CN='nv-'+VER,REPO='rahxdkdo-coder/rahxdkdo-coder.github.io',TAG='v-'+VER;
+var SRC=[{n:'сайт',u:function(f){return f+'?v='+VER+'&nosw=1&r='+Date.now()}},
+  {n:'запасной 1',u:function(f){return 'https://cdn.jsdelivr.net/gh/'+REPO+'@'+TAG+'/'+f}},
+  {n:'запасной 2',u:function(f){return 'https://rawcdn.githack.com/'+REPO+'/'+TAG+'/'+f}},
+  {n:'запасной 3',u:function(f){return 'https://raw.githubusercontent.com/'+REPO+'/'+TAG+'/'+f}}];
+function srcOrder(){var b=0;try{b=+localStorage.getItem('nv_src')||0}catch(_){}var o=[b];for(var i=0;i<SRC.length;i++)if(i!==b)o.push(i);return o}
+function kb(n){return n<1024?n+' Б':n<1048576?Math.round(n/1024)+' КБ':(n/1048576).toFixed(1)+' МБ'}
+function prog(){var L=$('load');if(L&&L.style.display==='flex'){var p=Math.min(99,Math.round((LD[0]+LD[1])/(SIZE+ISIZE)*100));$('lt').innerHTML='открываем вашу вселенную… '+p+'%'}}
+function cKey(f){return new URL(f+'?v='+VER,location.href).href}
+function cacheGet(f,sz){try{if(!window.caches)return Promise.resolve(null);return caches.open(CN).then(function(c){return c.match(cKey(f))}).then(function(r){return r?r.arrayBuffer():null}).then(function(b){return b&&b.byteLength===sz?new Uint8Array(b):null}).catch(function(){return null})}catch(_){return Promise.resolve(null)}}
+function cachePut(f,u){try{if(window.caches)caches.open(CN).then(function(c){return c.put(cKey(f),new Response(u,{headers:{'Content-Type':'application/octet-stream'}}))}).catch(function(){})}catch(_){}}
+function cacheDel(f){try{if(!window.caches)return Promise.resolve();return caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.open(k).then(function(c){return c.keys().then(function(rs){return Promise.all(rs.filter(function(r){return r.url.indexOf('/'+f)>=0}).map(function(r){return c.delete(r)}))})})}))}).catch(function(){})}catch(_){return Promise.resolve()}}
+/* одна попытка: если данные перестали идти 15 секунд — бросаем и пробуем следующий сервер */
+function xget(url,sz,slot){return new Promise(function(res,rej){var x=new XMLHttpRequest(),t=0,got=0;
+  function arm(){clearTimeout(t);t=setTimeout(function(){try{x.abort()}catch(_){}rej('застыла на '+kb(got))},got?15000:20000)}
+  try{x.open('GET',url,true);x.responseType='arraybuffer'}catch(e){rej('нельзя открыть');return}
+  x.onprogress=function(e){got=e.loaded;LD[slot]=e.loaded;prog();arm()};
+  x.onload=function(){clearTimeout(t);var n=x.response?x.response.byteLength:0;if(x.status===200&&n===sz){LD[slot]=sz;prog();res(new Uint8Array(x.response))}else rej('ответ '+x.status+', '+kb(n)+' из '+kb(sz))};
+  x.onerror=function(){clearTimeout(t);rej('обрыв на '+kb(got))};arm();x.send()})}
+function getNet(f,sz,slot){var o=srcOrder(),i=0;return new Promise(function(res,rej){(function next(){if(i>=o.length){rej('net');return}var k=o[i++],S0=SRC[k];LD[slot]=0;
+  xget(S0.u(f),sz,slot).then(function(u){try{localStorage.setItem('nv_src',k)}catch(_){}LOG.push(f+' · '+S0.n+': ок');cachePut(f,u);res(u)},function(why){LOG.push(f+' · '+S0.n+': '+why);next()})})()})}
+function getBin(f,sz,slot,fresh){return (fresh?Promise.resolve(null):cacheGet(f,sz)).then(function(u){if(u){LD[slot]=sz;LOG.push(f+' · сохранённая копия');return u}return getNet(f,sz,slot)})}
+function download(){if(dl)return dl;var a=getBin('app.bin',SIZE,0),b=getBin('img.bin',ISIZE,1);b.catch(function(){});a.catch(function(){});dl={app:a,img:b};a.catch(function(){dl=null});return dl}
 download();
+function decApp(raw,t){return S.importKey('raw',raw,'AES-GCM',false,['decrypt']).then(function(k){return S.decrypt({name:'AES-GCM',iv:b64(IV)},k,t)})}
+function decImg(raw,b){return S.importKey('raw',raw,'AES-GCM',false,['decrypt']).then(function(k){return S.decrypt({name:'AES-GCM',iv:b.slice(0,12)},k,b.slice(12))})}
 function openWith(raw,who){setLoad(true,'открываем вашу вселенную…');
-  var D=download();window.__nvImg=D.img.then(function(b){return S.importKey('raw',raw,'AES-GCM',false,['decrypt']).then(function(k){return S.decrypt({name:'AES-GCM',iv:b.subarray(0,12)},k,b.subarray(12))})});window.__nvImg.catch(function(){});
-  return D.app.then(function(t){return S.importKey('raw',raw,'AES-GCM',false,['decrypt']).then(function(k){return S.decrypt({name:'AES-GCM',iv:b64(IV)},k,t)}).catch(function(){throw 'dec'})})
-  .then(function(buf){var html=new TextDecoder().decode(buf).split("'%%WHO%%'").join("'"+who+"'").split("'%%KEY%%'").join("'"+ub64(new Uint8Array(raw))+"'");document.open();document.write(html);document.close()})}
+  var D=download();
+  /* если сохранённая копия испортилась — стираем её и берём свежую */
+  window.__nvImg=D.img.then(function(b){return decImg(raw,b)}).catch(function(){return cacheDel('img.bin').then(function(){return getBin('img.bin',ISIZE,1,1)}).then(function(b){return decImg(raw,b)})});window.__nvImg.catch(function(){});
+  return D.app.then(function(t){return decApp(raw,t)}).catch(function(e){if(e==='net')throw e;LOG.push('app.bin не расшифровался — беру свежий');return cacheDel('app.bin').then(function(){return getBin('app.bin',SIZE,0,1)}).then(function(t){return decApp(raw,t)})}).catch(function(e){if(e==='net')throw e;throw 'dec'})
+  .then(function(buf){try{sessionStorage.removeItem('nv_rl')}catch(_){}var html=new TextDecoder().decode(buf).split("'%%WHO%%'").join("'"+who+"'").split("'%%KEY%%'").join("'"+ub64(new Uint8Array(raw))+"'");document.open();document.write(html);document.close()})}
+/* полный сброс (только когда сохранённые файлы точно испорчены) */
+function fixAll(){var tasks=[];try{if(window.caches)tasks.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}))}catch(_){}
+  try{if(navigator.serviceWorker)tasks.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}))}catch(_){}
+  Promise.all(tasks).catch(function(){}).then(function(){location.replace(location.pathname+'?fix='+Date.now())})}
+function reloadFresh(){location.replace(location.pathname+'?u='+Date.now())}
+window.__nvFix=fixAll;
+function details(){return '<details class="dt"><summary>подробности для Данечки</summary><div>версия '+VER+' · '+(navigator.serviceWorker&&navigator.serviceWorker.controller?'офлайн-помощник есть':'без помощника')+'<br>'+LOG.slice(-10).join('<br>')+'</div></details>'}
 function fail(e){setLoad(false);var btn=$('go');btn.disabled=false;btn.textContent='Открыть ✨';
-  if(e==='net')err('Не получилось загрузить — слабый интернет 📶<br>Подожди чуть-чуть и нажми «Открыть» ещё раз.');
-  else if(e==='dec'){try{localStorage.removeItem('nv_k')}catch(_){}err('Сайт обновился — введи код ещё раз 💛')}
-  else err('Что-то пошло не так. Попробуй открыть ссылку в Safari или Chrome 🙏')}
+  if(e==='net'){var cut=LOG.some(function(l){return /застыла на 1\d КБ|застыла на 2\d КБ/.test(l)});
+    err((cut?'Интернет пропускает только самое начало загрузки 📶 Похоже, оператор ограничивает сайт.<br>Переключись с мобильного интернета на Wi-Fi (или наоборот) и нажми «Открыть».':'Не получилось скачать вселенную — слабый интернет 📶<br>Подожди чуть-чуть и нажми «Открыть» ещё раз.')+details());dl=null}
+  else if(e==='dec'){var n=0;try{n=+sessionStorage.getItem('nv_rl')||0;sessionStorage.setItem('nv_rl',n+1)}catch(_){n=9}
+    if(n<1){reloadFresh();return}
+    err('Сайт как раз обновляется 💛 Подожди 5 минут и нажми «Открыть».<br><button type="button" class="fixb" id="fixB">Если не помогает — нажми сюда</button>'+details());var fb=$('fixB');if(fb)fb.onclick=function(){fb.textContent='чиню…';fixAll()}}
+  else err('Что-то пошло не так. Попробуй открыть ссылку в Safari или Chrome 🙏'+details())}
 function tryCode(code){var n=new TextEncoder().encode(norm(code));return S.importKey('raw',n,'PBKDF2',false,['deriveKey']).then(function(base){
   return S.deriveKey({name:'PBKDF2',salt:b64(SALT),iterations:ITER,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt'])}).then(function(dk){
   return SLOTS.reduce(function(p,sl){return p.catch(function(){return S.decrypt({name:'AES-GCM',iv:b64(sl.i)},dk,b64(sl.k)).then(function(raw){return{raw:new Uint8Array(raw),who:sl.w}})})},Promise.reject())}).catch(function(){throw 'code'})}
