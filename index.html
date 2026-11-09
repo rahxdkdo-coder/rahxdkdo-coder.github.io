@@ -55,7 +55,7 @@ button:disabled{opacity:.6}
 <div class="load" id="load"><i></i><span id="lt">открываем вашу вселенную…</span><div class="lslow" id="lslow"></div></div>
 <script>
 (function(){
-var SLOTS=[{"w":"anya","i":"Zz/u9KMW2K4Pv6xq","k":"VauVBHk14Tm/p7YmeslupKoGr1ZixwzwOQ7jdnukIUJLko9xrhIaUAMz85oJENHt"},{"w":"anya","i":"SGUcUN/nbwVPNBUB","k":"GgEiXrIp3xFRYOy5JDnEK62SKii8wILWX4MJdLM8TMkZvft1KnRPZi7q8mzMR7rD"},{"w":"anya","i":"HTbYxDvewtITw6j8","k":"DdHmdD1XNbV96RdHrgs4FEISZI6Yz7KAz8HanmLF+p0pFthMPqwfMxxnmpM0J1vQ"},{"w":"anya","i":"zIaj0mEwH66u5i3k","k":"alz9G3WrTiTgM+/CCJ/c3w6958bp6ZRXEYdQPkIUEYAmW1Jbyu0zbXXoF5CsjLaA"},{"w":"anya","i":"bHO/QXs2ReplW9NH","k":"GTr27p/T/YZ8T2FWv3j5zm6WQGXfJVDmn+hZmxpzAZa3+2HilXnJcU72wcLQy6gQ"},{"w":"anya","i":"7C5b9KBZ1qTG9GRQ","k":"bez7l2m87OyHO9WFsG2Qm+eJf1j4Z/+pP6pz5csZ30pXgizVDmRWZvJNx5+xDVKv"},{"w":"dan","i":"PQgO+GXiJY9QpHny","k":"LrcyTF/M5FjFYDp664EwFRi48p46Eu1KPfUNe/Dr2+QSdJMIyLfBCwZrk6ESpcZh"},{"w":"dan","i":"i+loJFWlKDj6XOVK","k":"fBM1RG3/CsjZfjZXPPUghAVf2eeCrbdL8CFjqPd/0ZwQvRIWV3W3b03s7PpswDRY"},{"w":"dan","i":"guE09lLDTsN7knQ0","k":"SKe1l8GX3zzaNV4MQSbOskqHSNmVGkotjnrCCeGh0VufA8pcxWve6FSNRMvKyiv+"},{"w":"dan","i":"tmKBNv4Yfbl9zJ9p","k":"QRp6KTToAEs/+hx4qQQfiOvA1uiTcAbgDNMhMAcHKuHiO6vI1XELwjDloSlGD6R3"}],SALT='5haBoSJsObm9yxXb6oJnSw==',ITER=150000,IV='WWsSBS/QxGRl5I2a',VER='mw901xuh',SIZE=301471,ISIZE=1047636;
+var SLOTS=[{"w":"anya","i":"D+RN9wrTDI99+/hK","k":"VEQZudAvVFwnY6tryZ7HgUROcIJ8I1Z5AiFkasx1U8qBhnS/xaSMQVp/V+CmLsDl"},{"w":"anya","i":"zpz5eqTWvN4vMrKm","k":"fVefSR1rblZ4vLuvsjZycxZqwJBw6nux6GWv03zyhF4CggBZ4u+NBdh9vKTn9nKr"},{"w":"anya","i":"5VcYLSt8nJSHJzxF","k":"c/smdR+QdH7tiZoNEd9ekKuxTwb0VITsNnbRReZilFNG+sGhoMQmnF25IwOE9OGd"},{"w":"anya","i":"XRTmaJiZElwW0eUU","k":"gck3vKFO09sWw2k0p80D6zWq/ZlaS/nq1PJXtf7GQbTHL4BvFJeSOARDNvdxcfP7"},{"w":"anya","i":"fHEabyfx8EXxPQV6","k":"QHiDmiT3WlkPB5kMEZv/zX9yHnkEZ08lTUDkD1uC31FEB6GYe2q9R9h2hq60uyE+"},{"w":"anya","i":"oBo0VIk5sH8GLsL5","k":"qvLe2o0v4jlJNBcxFbUmXg47w3WjvfVWoMtJ2OuxHTMFghLdFl7aDfclKQLC9zMg"},{"w":"dan","i":"9xiotsAigyqa+KLz","k":"RXmGmfyNipoRFCZ8Xd7tHKe+ZAViQqDTM3HC1QiMhCPu4At2uGEEKDFQzeagwGlC"},{"w":"dan","i":"9GL4OpfCQPKCuXft","k":"M/E1aRDltzXkksbF0+tZI0af4RRovJEuq7R1z/cOW1Hcvc02zmUxaUrOoKbkMK7K"},{"w":"dan","i":"7WN06ovAP3buuVcE","k":"fC0maN21TEhqD4/htLHN16jj+ZWFqu0UdjpBQRQ/5TZ7hHj8O8yFcCQul2cWlLUE"},{"w":"dan","i":"sgMjUfiJQuOdXzmP","k":"HZfrxVwk5Kp1Vw9AuqB2q1cgNDH35fD5s04kizB4ygkJO7kttHwwLluW6zqlJ0Mf"}],SALT='UsUhXwt3l6GECviX7TehVg==',ITER=150000,IV='iZtmMwB51z4GeMdz',VER='mw906atl',SIZE=301324,ISIZE=1047636;
 var $=function(i){return document.getElementById(i)};
 var cv=$('cv'),c=cv.getContext('2d'),W,H,st=[];
 function sz(){W=innerWidth;H=innerHeight;var d=Math.min(devicePixelRatio||1,2);cv.width=W*d;cv.height=H*d;c.setTransform(d,0,0,d,0,0)}sz();addEventListener('resize',sz);
@@ -71,11 +71,11 @@ function err(t){$('err').innerHTML=t}
 var slowT=0;function setLoad(on,t){$('load').style.display=on?'flex':'none';if(t)$('lt').innerHTML=t;$('box').classList.toggle('out',!!on);clearInterval(slowT);var sl=$('lslow');sl.style.display='none';var t0=Date.now();
   if(on)slowT=setInterval(function(){var s=Math.round((Date.now()-t0)/1000);if(s<12)return;sl.style.display='block';var last=LOG.length?LOG[LOG.length-1]:'';sl.innerHTML='Первая загрузка после обновления — около 1,3 МБ, дальше будет открываться сразу 💛<br>'+s+' сек'+(last?' · '+last:'')},1000)}
 /* ===== загрузка: сначала сохранённая копия, потом сайт, потом запасные серверы ===== */
-var dl=null,LD=[0,0],LOG=[],CN='nv-'+VER,REPO='rahxdkdo-coder/rahxdkdo-coder.github.io',TAG='v-'+VER;
-var SRC=[{n:'сайт',u:function(f){return f+'?v='+VER+'&nosw=1&r='+Date.now()}},
-  {n:'запасной 1',u:function(f){return 'https://cdn.jsdelivr.net/gh/'+REPO+'@'+TAG+'/'+f}},
-  {n:'запасной 2',u:function(f){return 'https://rawcdn.githack.com/'+REPO+'/'+TAG+'/'+f}},
-  {n:'запасной 3',u:function(f){return 'https://raw.githubusercontent.com/'+REPO+'/'+TAG+'/'+f}}];
+var dl=null,LD=[0,0],LOG=[],CN='nv-'+VER,REPO='rahxdkdo-coder/rahxdkdo-coder.github.io',MSHA='9918c2d440d0b7f7ce3f0b2dd748f4de7f951852',MP=MSHA+'/v/'+VER+'/';
+/* запасные серверы отдают те же файлы из закреплённой версии репозитория */
+var MIRB=/^[0-9a-f]{40}$/.test(MSHA)?['https://cdn.jsdelivr.net/gh/'+REPO+'@'+MP,'https://rawcdn.githack.com/'+REPO+'/'+MP,'https://raw.githubusercontent.com/'+REPO+'/'+MP]:[];window.__nvMir=MIRB;
+var SRC=[{n:'сайт',u:function(f){return f+'?v='+VER+'&nosw=1&r='+Date.now()}}];
+MIRB.forEach(function(m,i){SRC.push({n:'запасной '+(i+1),u:function(f){return m+f}})});
 function srcOrder(){var b=0;try{b=+localStorage.getItem('nv_src')||0}catch(_){}var o=[b];for(var i=0;i<SRC.length;i++)if(i!==b)o.push(i);return o}
 function kb(n){return n<1024?n+' Б':n<1048576?Math.round(n/1024)+' КБ':(n/1048576).toFixed(1)+' МБ'}
 function prog(){var L=$('load');if(L&&L.style.display==='flex'){var p=Math.min(99,Math.round((LD[0]+LD[1])/(SIZE+ISIZE)*100));$('lt').innerHTML='открываем вашу вселенную… '+p+'%'}}

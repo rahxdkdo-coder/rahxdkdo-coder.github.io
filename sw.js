@@ -1,13 +1,11 @@
 // Наша вселенная — офлайн-помощник (хранит только зашифрованные файлы).
 // Новая версия включается только когда она скачана целиком и проверена,
 // поэтому прошлая версия продолжает открываться, даже если интернет плохой.
-const V = 'mw901xuh', C = 'nv-' + V, SZ = {"app.bin":301471,"img.bin":1047636,"w_cloud.bin":433431,"w_fore.bin":127961,"w_hug.bin":128103,"w_meet.bin":471853,"w_moon.bin":431601,"w_ny.bin":558924,"w_spring.bin":478213,"w_summer.bin":424732,"w_winter.bin":515192,"s_heart.bin":104168,"s_home.bin":222024,"s_meet.bin":146408,"s_moon.bin":116354,"s_moon2.bin":114830,"s_spring.bin":150624,"s_summer.bin":123386};
+const V = 'mw906atl', C = 'nv-' + V, SZ = {"app.bin":301324,"img.bin":1047636,"w_cloud.bin":433431,"w_fore.bin":127961,"w_hug.bin":128103,"w_meet.bin":471853,"w_moon.bin":431601,"w_ny.bin":558924,"w_spring.bin":478213,"w_summer.bin":424732,"w_winter.bin":515192,"s_heart.bin":104168,"s_home.bin":222024,"s_meet.bin":146408,"s_moon.bin":116354,"s_moon2.bin":114830,"s_spring.bin":150624,"s_summer.bin":123386};
 const REPO = 'rahxdkdo-coder/rahxdkdo-coder.github.io';
-const MIR = [
-  v => 'https://cdn.jsdelivr.net/gh/' + REPO + '@v-' + v + '/',
-  v => 'https://rawcdn.githack.com/' + REPO + '/v-' + v + '/',
-  v => 'https://raw.githubusercontent.com/' + REPO + '/v-' + v + '/'
-];
+const MSHA = '9918c2d440d0b7f7ce3f0b2dd748f4de7f951852', MP = MSHA + '/v/' + V + '/';
+// запасные серверы — только для файлов этой версии (они лежат в закреплённой версии репозитория)
+const MIR = /^[0-9a-f]{40}$/.test(MSHA) ? ['https://cdn.jsdelivr.net/gh/' + REPO + '@' + MP, 'https://rawcdn.githack.com/' + REPO + '/' + MP, 'https://raw.githubusercontent.com/' + REPO + '/' + MP] : [];
 const MUST = ['app.bin', 'img.bin'];
 const EXTRA = ['./manifest.webmanifest', './pwa/icon-192.png', './pwa/icon-512.png'];
 const scope = () => self.registration.scope;
@@ -35,7 +33,7 @@ async function grab(url, want, idle) {
 // файл с сайта, а если не идёт — с запасных серверов
 async function grabAny(name, v) {
   const want = v === V ? SZ[name] : 0;
-  const urls = [new URL(name + '?v=' + v + '&nosw=1&r=' + Date.now(), scope()).href].concat(MIR.map(m => m(v) + name));
+  const urls = [new URL(name + '?v=' + v + '&nosw=1&r=' + Date.now(), scope()).href].concat(v === V ? MIR.map(m => m + name) : []);
   let last;
   for (const u of urls) { try { return await grab(u, want, 15000); } catch (e) { last = e; } }
   throw last || new Error('fail');
