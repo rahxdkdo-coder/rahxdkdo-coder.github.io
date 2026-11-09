@@ -1,5 +1,5 @@
 // Наша вселенная — офлайн-кэш (хранит только зашифрованные файлы)
-const C = 'nv-mw84vws6';
+const C = 'nv-mw8vqa7p';
 const CORE = ['./', './index.html', './manifest.webmanifest', './pwa/icon-192.png', './pwa/icon-512.png'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(C).then(c => c.addAll(CORE)).then(() => self.skipWaiting())); });
 self.addEventListener('activate', e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== C).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
