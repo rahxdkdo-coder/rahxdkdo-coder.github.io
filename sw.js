@@ -2,10 +2,10 @@
 // • Новая версия включается только когда скачана целиком и проверена — прошлая открывается, даже если интернет плохой.
 // • Картинки, сцены и обои хранятся по отпечатку и не скачиваются заново после обновлений.
 // • Шрифты берутся из сохранённой копии, без интернета.
-const V = 'mw91u8ji', C = 'nv-' + V, F = 'nv-files', FONTS = 'nv-fonts';
-const SZ = {"img.bin":[1047636,"3be9047d8c69ac54d998"],"w_cloud.bin":[433431,"c993cebf106a2e37e4f1"],"w_fore.bin":[127961,"92d9f947109aa6eff1ae"],"w_hug.bin":[128103,"f5e8b95b7f8f7fdfe7fb"],"w_meet.bin":[471853,"c4f6067e4101431b57db"],"w_moon.bin":[431601,"b05aa268940648aeb3b5"],"w_ny.bin":[558924,"3b4357dad9417934728b"],"w_spring.bin":[478213,"aa56ac0f0d7466ea9af8"],"w_summer.bin":[424732,"5d50b730bbdf134b549e"],"w_winter.bin":[515192,"abc7db22f88c7bc2c667"],"s_heart.bin":[104168,"8fde667f5d6eb151686a"],"s_home.bin":[222024,"dbbc845c1956283fc339"],"s_meet.bin":[146408,"06d267177da3b3307007"],"s_moon.bin":[116354,"198cf9c03dd48edd21db"],"s_moon2.bin":[114830,"f36388ba5c1e98d50896"],"s_spring.bin":[150624,"16c19862c49da0aab478"],"s_summer.bin":[123386,"e9d0f9fc7f5a6b9d22e1"]}, APP = {"app.bin":94547,"appu.bin":303766};
+const V = 'mw94hyt3', C = 'nv-' + V, F = 'nv-files', FONTS = 'nv-fonts';
+const SZ = {"img.bin":[1047636,"3be9047d8c69ac54d998"],"w_cloud.bin":[433431,"c993cebf106a2e37e4f1"],"w_fore.bin":[127961,"92d9f947109aa6eff1ae"],"w_hug.bin":[128103,"f5e8b95b7f8f7fdfe7fb"],"w_meet.bin":[471853,"c4f6067e4101431b57db"],"w_moon.bin":[431601,"b05aa268940648aeb3b5"],"w_ny.bin":[558924,"3b4357dad9417934728b"],"w_spring.bin":[478213,"aa56ac0f0d7466ea9af8"],"w_summer.bin":[424732,"5d50b730bbdf134b549e"],"w_winter.bin":[515192,"abc7db22f88c7bc2c667"],"s_heart.bin":[104168,"8fde667f5d6eb151686a"],"s_home.bin":[222024,"dbbc845c1956283fc339"],"s_meet.bin":[146408,"06d267177da3b3307007"],"s_moon.bin":[116354,"198cf9c03dd48edd21db"],"s_moon2.bin":[114830,"f36388ba5c1e98d50896"],"s_spring.bin":[150624,"16c19862c49da0aab478"],"s_summer.bin":[123386,"e9d0f9fc7f5a6b9d22e1"]}, APP = {"app.bin":97160,"appu.bin":311420};
 const REPO = 'rahxdkdo-coder/rahxdkdo-coder.github.io';
-const MSHA = '051d105cf59873b8fe74b72cf62912d67cf85aaf', MP = MSHA + '/v/' + V + '/';
+const MSHA = 'cc8ff8da2181bc17276b352b791f4a1475cee948', MP = MSHA + '/v/' + V + '/';
 // запасные серверы — файлы этой версии лежат в закреплённой версии репозитория
 const MIR = /^[0-9a-f]{40}$/.test(MSHA) ? ['https://cdn.jsdelivr.net/gh/' + REPO + '@' + MP, 'https://rawcdn.githack.com/' + REPO + '/' + MP, 'https://raw.githubusercontent.com/' + REPO + '/' + MP] : [];
 const AN = (typeof DecompressionStream !== 'undefined') ? 'app.bin' : 'appu.bin';
