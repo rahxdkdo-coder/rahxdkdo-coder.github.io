@@ -2,6 +2,8 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' blob: data:; media-src 'self' blob: data:; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://cdn.jsdelivr.net https://rawcdn.githack.com https://raw.githubusercontent.com https://api.open-meteo.com https://wttr.in wss://broker.emqx.io:8084 wss://broker.hivemq.com:8884 wss://test.mosquitto.org:8081 wss://mqtt.eclipseprojects.io; frame-src 'self' about: blob: data:; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#070b1f">
 <meta name="robots" content="noindex,nofollow">
@@ -55,7 +57,7 @@ button:disabled{opacity:.6}
 <div class="load" id="load"><i></i><span id="lt">открываем вашу вселенную…</span><div class="lslow" id="lslow"></div></div>
 <script>
 (function(){
-var SLOTS=[{"w":"anya","i":"4Y/1CkU440v7OM+n","k":"aeo85sGKXnm7I2tdYJVl9Id4az1yX23PC/dLHBNawPX0X6usMgdu20/bQey9dsIF"},{"w":"anya","i":"wntbPj/8MyGYLpOA","k":"OrlJTDPGL+IN+s0OiQSRtL212p6jHPVDBtgdhPKazDeak5aEvJL+MCNaDkN5phba"},{"w":"anya","i":"wNUyxYa++XAqVxD4","k":"vp7k/suTQ8UES1qTBmW9SpR+Wd6QIxF7qmTIeaCjja5hnFzlyyB/p9vBF1Nm9z1t"},{"w":"anya","i":"wJ6iTwC/17i6Cwxc","k":"lFrXKvhqtGR6t46aIt8fjcNv2RC8Etj+Y16T1ZdIVBBJSoXcZFrC+2QNr+oM9784"},{"w":"anya","i":"vYNBzL2zDML0Aj3H","k":"4xl5EFnxGhVF+YqAnJhXGoE+hzs7qQdN+JK/YTfNhXSwbA6igl1V43Y2wT/WjXCm"},{"w":"anya","i":"Emc5UGY9LvYvZyvc","k":"L0EFS4GSVpshVSBQ1eLE60pPSoWSjfE6n74DxdRC8wKsKJa+fb2rn/WK3Yq/fbl9"},{"w":"dan","i":"MtHlZiFjAy8JOBed","k":"VPCafZBTahr8xSTYpJCB0cgQkYagXy7qEO+fiI1+fIHyatcZDXkXWzkT+VQ42ccj"},{"w":"dan","i":"GlTeS/AKE33v22p5","k":"AeHBL3Un76BbbYHnUwCLlPLqolOxGaHnEirTHbxq4+C51lXhpJW2SdN3QMn5A2pu"},{"w":"dan","i":"EZQhZzCOfVXgNwhA","k":"a1IeBPhJiBtcPp1Iek8WYTPk1mZNOI+SzSFeFr6Fo/oqF95rG+qi7dz6G8GQ45cR"},{"w":"dan","i":"gOyAB0ZY8PBerf7Z","k":"wQHIgGiaMet8oUVgkXCFkbsZrh9fGSutS/Oni0P8FBqHnTgKDIl9ymlIMYgXBFml"}],SALT='PGeyo8CTEEQzkOXavGTKbA==',ITER=150000,IV='XNq8WL0vXvLClHMd',IVU='T5ulKcFCCjT7Ukt1',VER='mw94hyt3',SIZE=97160,USIZE=311420,ISIZE=1047636,IH='3be9047d8c69ac54d998';
+var SLOTS=[{"w":"anya","i":"30PeJJJDRSpMPRc2","k":"5L8l1xaLJDXePTye8Ltofo82Avozqh20Z5AFB7tguuXmai5i0BG4t6UeImQTf2CM"},{"w":"anya","i":"BUx6+q4xg4CDyzdU","k":"/+3t1eJylC6XlfpNHAiZuWdWOZLjOeeRDz3V0Yi/CTW6veTLYyez+71oNcwC3cqW"},{"w":"anya","i":"r/zM1XaCON7HmTEz","k":"d22v7/kTuc4DOGZSYrHa5803Ejm6W5zDoRfrbbSSjc3NgX1QenZhUsQgciS0NRLx"},{"w":"anya","i":"lGzsStfC9g1M35Ot","k":"CGLMFcN5l2ypFvVYzwX1PjtFXeJiXpKMJUO43lDEWPE8nS9nFqqLE/SnLz9Ve5eN"},{"w":"anya","i":"waRK93ebSpA6+ce0","k":"l9UXVzuzWKmyUreZbo728PKBbc3/XeZoitdN+f3/KtLgY6pyFWCTfVN3V+xJ5ksn"},{"w":"anya","i":"lu5n0x1XxY2eGG3L","k":"Lr3NBnw/BVrY0wm+7muU/kjLqKuWHaG27WpdBq1A4QzNDjdF1k7moJb2is50wvJt"},{"w":"dan","i":"YoMTOThwQpSSL6xM","k":"agE2Gj94nCY5ygcvpdELMbPjDUywfR8cpzW5XeBarLAQG8PvLUsFa/kG9CJV/Pm2"},{"w":"dan","i":"ivCYdm1kix523lqw","k":"SqZxNzoE7F2L4oS0aRbTkgKhryY3RTs05EWmbasFhmKtZ0SBPm4ij6W4uxsJR+Jo"},{"w":"dan","i":"RkB87pm1qxL3cUdN","k":"YNzbxTFf5F7CCMPt+k/mbM/MgjlrE/XV7aFnzLU8P8V6h6EA7UIUhqFrUTV0KkYg"},{"w":"dan","i":"uRtpF6g20xgHLMZI","k":"yigOOLMGxtsEDjChIc8K7gtdsbdfPQ5XH2tcoFRgURgF1SfkIgLDNZPJOU0DPqXr"}],SALT='ZRYJFS9Je5Nwd4uZS2GbSA==',ITER=150000,IV='IKbc+djskX1KzEvP',IVU='p9ZEQuTdanJdylCF',VER='mwa3px3w',SIZE=103974,USIZE=334169,ISIZE=1047636,IH='3be9047d8c69ac54d998';
 var $=function(i){return document.getElementById(i)};
 var cv=$('cv'),c=cv.getContext('2d'),W,H,st=[];
 function sz(){W=innerWidth;H=innerHeight;var d=Math.min(devicePixelRatio||1,2);cv.width=W*d;cv.height=H*d;c.setTransform(d,0,0,d,0,0)}sz();addEventListener('resize',sz);
@@ -73,7 +75,7 @@ var slowT=0;function setLoad(on,t){$('load').style.display=on?'flex':'none';if(t
 /* ===== загрузка: сначала сохранённая копия, потом сайт, потом запасные серверы ===== */
 /* код сайта приходит сжатым (≈90 КБ вместо ≈300), если браузер умеет распаковывать; картинки — по отпечатку, скачиваются один раз */
 var GZ=!!(window.DecompressionStream&&window.Blob&&Blob.prototype.stream),AN=GZ?'app.bin':'appu.bin',ASZ=GZ?SIZE:USIZE,AIV=GZ?IV:IVU;
-var dl=null,LD=[0,0],LOG=[],CN='nv-'+VER,CF='nv-files',REPO='rahxdkdo-coder/rahxdkdo-coder.github.io',MSHA='cc8ff8da2181bc17276b352b791f4a1475cee948',MP=MSHA+'/v/'+VER+'/';
+var dl=null,LD=[0,0],LOG=[],CN='nv-'+VER,CF='nv-files',REPO='rahxdkdo-coder/rahxdkdo-coder.github.io',MSHA='1271937fc109ce5b9ee3798a7c7218a7453df143',MP=MSHA+'/v/'+VER+'/';
 /* запасные серверы отдают те же файлы из закреплённой версии репозитория */
 var MIRB=/^[0-9a-f]{40}$/.test(MSHA)?['https://cdn.jsdelivr.net/gh/'+REPO+'@'+MP,'https://rawcdn.githack.com/'+REPO+'/'+MP,'https://raw.githubusercontent.com/'+REPO+'/'+MP]:[];window.__nvMir=MIRB;
 function q(f){return f==='img.bin'?'?h='+IH:'?v='+VER}
